@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-// Fonction pour afficher le tableau
+
 void afficherTableau(int tableau[], int taille) {
     for (int i = 0; i < taille; i++) {
         printf("%d ", tableau[i]);
@@ -8,7 +8,7 @@ void afficherTableau(int tableau[], int taille) {
     printf("\n");
 }
 
-// Implémentation de l'algorithme de tri par insertion
+
 void triParInsertion(int tableau[], int taille) {
     for (int i = 1; i < taille; i++) {
         int element = tableau[i];
@@ -24,11 +24,14 @@ void triParInsertion(int tableau[], int taille) {
 }
 
 int main() {
-    int tableau[] = {12, 11, 13, 5, 6};
-    int taille = sizeof(tableau) / sizeof(tableau[0]);
-
-    printf("Tableau avant le tri :\n");
-    afficherTableau(tableau, taille);
+   int taille ;
+     printf("entrer la taille du tableau");
+     scanf("%d",&taille);
+int tableau[taille];
+               for (int i = 0; i < taille; i++){
+                  printf("entrer le %d elements du tableau\n",i+1);
+                  scanf("%d",&tableau[i]);
+                  }
 
     triParInsertion(tableau, taille);
 

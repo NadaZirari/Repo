@@ -43,8 +43,14 @@ void triRapide(int tableau[], int low, int high) {
 }
 
 int main() {
-    int tableau[] = {10, 7, 8, 9, 1, 5};
-    int taille = sizeof(tableau) / sizeof(tableau[0]);
+   int taille ;
+     printf("entrer la taille du tableau");
+     scanf("%d",&taille);
+int tableau[taille];
+               for (int i = 0; i < taille; i++){
+                  printf("entrer le %d elements du tableau\n",i+1);
+                  scanf("%d",&tableau[i]);
+                  }
 
     printf("Tableau avant le tri :\n");
     afficherTableau(tableau, taille);
