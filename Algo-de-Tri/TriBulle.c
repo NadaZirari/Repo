@@ -8,12 +8,6 @@ void echanger(int tableau[], int i, int j) {
 }
 
 
-void afficherTableau(int tableau[], int taille) {
-    for (int i = 0; i < taille; i++) {
-        printf("%d ", tableau[i]);
-    }
-    printf("\n");
-}
 
 
 void triABulles(int tableau[], int taille) {
@@ -35,10 +29,20 @@ int tableau[taille];
                   printf("entrer le %d elements du tableau\n",i+1);
                   scanf("%d",&tableau[i]);
                   }
-    triABulles(tableau, taille);
+
+   //appel de fonction
+        triABulles(tableau, taille);
+
+
 
     printf("Tableau après le tri :\n");
-    afficherTableau(tableau, taille);
+
+
+    for (int i = 0; i < taille; i++) {
+        printf("%d ", tableau[i]);
+    }
+    printf("\n");
+
 
     return 0;
 }
