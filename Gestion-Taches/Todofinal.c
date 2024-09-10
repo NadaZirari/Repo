@@ -327,11 +327,11 @@ void AfficherToutTaches(){
         int choisir;
         int op = -1;
 
-        // Demande du choix à l'utilisateur
+     
         printf("Entrez votre choix :\n");
         scanf("%d", &op);
 
-        // Gestion du menu
+        
         switch (op) {
             case 1:
                AjouterTache(); 
@@ -370,7 +370,7 @@ void AfficherToutTaches(){
                 break;
 
             case 12:
-                // Quitter la boucle et terminer le programme
+                // Quitter 
                 printf("Au revoir !\n");
                 return 0;
 
