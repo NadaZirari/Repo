@@ -25,27 +25,27 @@ struct Tache {
 
 //ajouter une seul tache
 void AjouterTache(){
-printf("entrer l'id \n");
-scanf("%d",&t[nombreTache].id);
+   printf("entrer l'id \n");
+   scanf("%d",&t[nombreTache].id);
 
-printf("entrer le titre\n");
-scanf("%[^\n]s",t[nombreTache].titre);
+   printf("entrer le titre \n");
+   scanf("%s",t[nombreTache].titre);
 
-printf("entrer la description\n");
-scanf("%[^\n]s",t[nombreTache].description);
+   printf("entrer la description \n");
+   scanf("%s",t[nombreTache].description);
 
-printf("entrer le jour de deadline\n");
-scanf("%d",&t[nombreTache].deadline.j);
+   printf("entrer le jour de deadline\n");
+   scanf("%d",&t[nombreTache].deadline.j);
 
-printf("entrer le mois de deadline\n");
-scanf("%d",&t[nombreTache].deadline.m);
+   printf("entrer le mois de deadline\n");
+   scanf("%d",&t[nombreTache].deadline.m);
 
-printf("entrer l'annee de deadline\n");
-scanf("%d",&t[nombreTache].deadline.a);
+   printf("entrer l'annee de deadline\n");
+   scanf("%d",&t[nombreTache].deadline.a);
 
-printf("entrer le statut du tache\n");
-scanf("%s",t[nombreTache].statut);
-nombreTache++;
+   printf("entrer le statut du tache\n");
+   scanf("%s",t[nombreTache].statut);
+   nombreTache++;
 
 }
 
@@ -295,11 +295,11 @@ void AfficherToutTaches(){
   printf("Liste des Taches :\n");
        for (int i = 0; i < nombreTache; i++) {
            printf("Tache %d :\n", i + 1);
-           printf("L'id : %s \n", t[i].id);
+           printf("L'id : %d \n", t[i].id);
            printf("Le titre : %s \n", t[i].titre);
            printf("La description: %s \n", t[i].description);
            printf("Le statut : %s \n", t[i].statut);
-            printf("Le deadline : %s -%s-%s\n", t[i].deadline.j,t[i].deadline.m,t[i].deadline.a);
+            printf("Le deadline : |%d-%d-%d|\n", t[i].deadline.j,t[i].deadline.m,t[i].deadline.a);
 
     }   
 }
