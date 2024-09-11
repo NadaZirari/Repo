@@ -24,6 +24,7 @@ struct Etudiant e[100];
 char departements[NB_DEPARTEMENTS][100] = {"informatique", "maths","physique", "economie", "biologie", "chimie"};
 
 int nbretudiant=0;
+int id = 1;
 
 // Fonctiond de vérification si un étudiant existe déjà ou non
 int etudiantExiste(int num) {
@@ -43,12 +44,7 @@ void ajouter_etudiant() {
         scanf("%d", &n);
     } 
     for(int i=0;i<n;i++){
-    printf("Entrer le Numero unique du %d etudiant: ",i+1);
-    scanf("%d", &e[nbretudiant].numero);
-    while(etudiantExiste(e[nbretudiant].numero) != -1) {
-        printf("Cet étudiant est déjà enregistré, Veuillez entrez un autre numéro ===> ");
-        scanf("%d", &e[nbretudiant].numero);
-    }
+    e[nbretudiant].numero = id++;
     printf("Nom: ");
     scanf(" %[^\n]s", e[nbretudiant].nom);
      getchar();
@@ -223,18 +219,15 @@ return sum / nb;
 // Calcul de la moyenne générale de l'université entière
 
 float moyenneGeneraleUniversite() {
-    float sum = 0;
-int totalEtudiants = 0;
-for(int i = 0; i < NB_DEPARTEMENTS; i++) {
-    int etudiantsDep = nbEtudiantDepartement(departements[i]);
-    if(etudiantsDep > 0) {
-        sum += MGDepartement(departements[i]) * etudiantsDep;
-        totalEtudiants += etudiantsDep;
+      int choix, cpt = 0;
+    float m, S = 0.0;
+   for (int i = 0; i < nbretudiant; i++) {
+            S += e[i].note_generale;
+            cpt++;
+        }
+        m = (float) S / cpt;
+        printf("La moyenne generale de l'universite est: %.2f\n", m);
     }
-}
-if(totalEtudiants == 0) return 0;  // Aucun étudiant
-return sum / totalEtudiants;
-}
 
 
 
@@ -279,7 +272,7 @@ void afficher_etudiants_sup_seuil(float seuil) {
     printf("Etudiants ayant une moyenne generale superieure à %.2f:\n", seuil);
     
     for (int i = 0; i < nbretudiant; i++) {
-        if (e[i].note_generale > seuil) {
+        if (e[i].note_generale >= seuil) {
             etudiantsTrouves = 1;
             printf("\nNumero: %d\n", e[i].numero);
             printf("Nom: %s\n", e[i].nom);
@@ -393,7 +386,26 @@ void afficherEtudiantsParDepartement() {
             printf("%d \t %s \t\t %s \t\t %d/%d/%d \t\t %.2f\n",
                    e[i].numero, e[i].nom, e[i].prenom, e[i].date.j, e[i].date.m, e[i].date.a, e[i].note_generale);
             trouve = 1;  // L'étudiant a été trouvé
+        }void trierEtudiantsParNom(int ordreCroissant) {
+    for (int i = 0; i < nbretudiant - 1; i++) {
+        for (int j = 0; j < nbretudiant - i - 1; j++) {
+            int comparaison;
+            if (ordreCroissant) {
+                comparaison = strcmp(e[j].nom, e[j + 1].nom);
+            } else {
+                comparaison = strcmp(e[j + 1].nom, e[j].nom);
+            }
+
+            if (comparaison > 0) {
+                // Échanger les étudiants
+                struct Etudiant temp = e[j];
+                e[j] = e[j + 1];
+                e[j + 1] = temp;
+            }
         }
+    }
+    printf("Étudiants triés par nom.\n");
+}
     }
 
     if (!trouve) {
@@ -478,6 +490,38 @@ void trierEtudiantsParStatutReussite() {
 }
 
 
+void afficher_menu_de_manipulation(){
+
+    int choix;
+
+    while (1)
+    {
+        printf("1. Modifier un etudiant\n");
+        printf("2. Supprimer un etudiant\n");
+        printf("3. Retour au menu principale\n");
+
+        printf("Votre choix : ");
+        scanf("%d", &choix);
+
+
+        switch (choix)
+        {
+        case 1:
+            modifier_etudiant();
+            break;
+        case 2:
+            supprimer_etudiant();
+            break;
+        case 3:
+            return; // Retoure au menu principale
+        
+        default:
+            break;
+        }
+    }
+    
+}
+
 
 
 
@@ -486,11 +530,10 @@ void trierEtudiantsParStatutReussite() {
 void afficherMenu() {
     printf("****************Menu Principal:*******************************************\n");
     printf("1. Ajouter un etudiant\n");
-    printf("2. Modifier un etudiant\n");
-    printf("3. Supprimer un etudiant\n");
+    printf("2. Manipulation d'un etudiant\n");
     printf("4. Afficher un etudiant specifique\n");
     printf("5. Afficher tous les etudiants\n");
-    printf("6. Afficher le nombre total d'etudiants\n");
+    printf("6. Afficher le nombre total d'etudiants dans luniversite\n");
     printf("7. Afficher le nombre d'etudiants dans chaque departement\n");
     printf("8. Afficher les etudiants ayant une moyenne generale superieure a un seuil\n");
     printf("9. Afficher les 3 etudiants ayant les meilleures notes\n");
@@ -517,10 +560,7 @@ int main() {
                 ajouter_etudiant();
                 break;
             case 2:
-                modifier_etudiant();
-                break;
-            case 3:
-                supprimer_etudiant();
+                afficher_menu_de_manipulation();
                 break;
             case 4:
                 afficher_Un_seul_etudiant();
