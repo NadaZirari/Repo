@@ -20,7 +20,7 @@ struct Etudiant{
     };
 struct Etudiant e[100];
 
-char departements[NB_DEPARTEMENTS][100] = {"Informatique", "Maths","Physique", "Economie", "Biologie", "Chimie"};
+char departements[NB_DEPARTEMENTS][100] = {"informatique", "maths","physique", "economie", "biologie", "chimie"};
 
 int nbretudiant=0;
 
@@ -58,10 +58,13 @@ void ajouter_etudiant() {
     scanf("%d", &e[nbretudiant].date.j);
     printf(" entrer le Mois  ");
     scanf("%d", &e[nbretudiant].date.m);
+    getchar();
     printf("entrer l'Année ");
     scanf("%d", &e[nbretudiant].date.a);
+    getchar();
     printf("Departement: ");
     scanf("%[^\n]s", e[nbretudiant].departement);
+    getchar();
     printf("entrer la Note generale: ");
     scanf("%f", &e[nbretudiant].note_generale);
 
@@ -75,7 +78,7 @@ void modifier_etudiant() {
     int num;
     printf("Entrez le numero unique de l'etudiant a modifier: ");
     scanf("%d", &num);
- while(etudiantExiste(num) == -1) {
+  while(etudiantExiste(num) == -1) {
         printf("Erreur!!!: Etudiant non trouvé, veuillez saisir un autre numéro ===> ");
         scanf("%d", &num);
     }
@@ -155,13 +158,21 @@ int index = etudiantExiste(numero);
      printf("Suppression annulée.");
     }
 
-void afficher_etudiant() {
-    int numero;
-    char choix;
-    printf("Afficher un etudiant specifique? ecrire 'u'. Afficher tous les etudiants? ecrire 't' (u/t): ");
-    scanf(" %c", &choix);
 
-    if(choix == 'u') {
+// Fonction pour afficher les étudiants
+void afficherTousEtudiants() {
+    printf("\nListe des étudiants:\n");
+    printf("Numéro \t Nom \t\t Prénom \t Date de Naissance \t Note Générale\n");
+    printf("---------------------------------------------------------------\n");
+
+    for (int i = 0; i < nbretudiant; i++) {
+        printf("%d \t %s \t\t %s \t\t %d/%d/%d \t\t %.2f\n",e[i].numero, e[i].nom, e[i].prenom, e[i].date.j, e[i].date.m, e[i].date.a, e[i].note_generale);
+    }
+}
+
+
+void  afficher_Un_seul_etudiant() {
+    int numero;
         printf("Entrez le numero unique de l'etudiant a afficher: ");
         scanf("%d", &numero);
 
@@ -178,16 +189,9 @@ void afficher_etudiant() {
             }
         }
         printf("Etudiant non trouve.\n");
-    } else if(choix == 't') {
-        printf("Numéro \t \t *Nom \t\t *Prénom \t\t *Date de Naissance \t\t *Département \t\t *Note Générale *\n");
-        for(int i = 0; i < nbretudiant; i++) {
-            printf("%d \t\t %s \t\t %s  \t\t%d/%d/%d \t\t %s \t\t %.2f \n",
-                   e[i].numero, e[i].nom, e[i].prenom, e[i].date.j, e[i].date.m, e[i].date.a, e[i].departement, e[i].note_generale);
-        }
-    } else {
-        printf("Choix invalide.\n");
-    }
-}
+    } 
+    
+
 // Nombre d'étudiants dans un département
 int nbEtudiantDepartement(char dep[]) {
     int nbetuDep = 0;
@@ -229,6 +233,9 @@ if(totalEtudiants == 0) return 0;  // Aucun étudiant
 return sum / totalEtudiants;
 }
 
+
+
+//partie 2
 
 
 
@@ -298,7 +305,7 @@ void afficher_top_3_etudiants() {
         temp[i] = e[i];
     }
 
-    // Tri  tri par sélection des étudiants par note générale (ordre décroissant)
+    // Tri par sélection des étudiants par note générale (ordre décroissant)
     for (int i = 0; i < nbretudiant - 1; i++) {
         for (int j = i + 1; j < nbretudiant; j++) {
             if (temp[i].note_generale < temp[j].note_generale) {
@@ -490,9 +497,8 @@ void afficherMenu() {
     printf("13. Trier les étudiants par leur nom (A-Z ou Z-A)\n");
     printf("14. Trier les étudiants par moyenne générale (du plus élevé au plus faible ou inversement)\n");
     printf("15. Trier les étudiants selon leur statut de réussite\n");
-    printf("16. Trier les étudiants par mention\n");
     printf("0. Quitter\n");
-    printf("****choisissez une option (0-16) : ");
+    printf("****choisissez une option (0-15) : ");
 }
 
 int main() {
@@ -513,10 +519,10 @@ int main() {
                 supprimer_etudiant();
                 break;
             case 4:
-                afficher_etudiant();
+                afficher_Un_seul_etudiant();
                 break;
             case 5:
-                afficher_etudiants();
+                afficherTousEtudiants();
                 break;
             case 6:
                 afficher_nombre_total_etudiants();
